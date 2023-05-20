@@ -1,0 +1,29 @@
+---
+name: Build/Push Image and Release Charts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Image Releaser
+        id: release
+        uses: codeWithUtkarsh/re-use-gh-sample@13dbab4a50017cd696b062acb36291ff2282e09d # v1.0.0
+
+  new-job:
+    needs: example-job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Use Output Variable
+        run: |
+          echo "The output value is: ${{ needs.example-job.outputs.output1 }}"
+          
